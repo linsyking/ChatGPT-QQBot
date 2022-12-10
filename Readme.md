@@ -44,3 +44,7 @@ pnpm install
 ### Dockerfile
 
 TO-DO
+
+## Prompt
+
+你可以在`game.js`中修改初始prompt。可以修改bot名字等等。
