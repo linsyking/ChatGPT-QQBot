@@ -1,5 +1,7 @@
 # ChatGPT QQ Bot
 
+[![asciicast](https://asciinema.org/a/Bajz7vUR6IQXlVQHdKBlu7231.svg)](https://asciinema.org/a/Bajz7vUR6IQXlVQHdKBlu7231)
+
 ## Getting Started
 
 ### 自搭环境
