@@ -51,6 +51,8 @@ TO-DO
 
 ## 效果展示
 
+（它会知道聊天用户的名字）
+
 ![log1](https://user-images.githubusercontent.com/49303317/206824539-8175b40f-66ec-4a62-93b4-cdeab1d62bf5.jpeg)
 
 ![log2](https://user-images.githubusercontent.com/49303317/206824536-8666e406-3172-419c-8029-4e3f1f72e19f.jpeg)
