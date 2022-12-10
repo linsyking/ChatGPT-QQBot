@@ -50,13 +50,13 @@ export const cin = {
 }
 
 export const cout = {
-    "type": "private",
+    "type": "private",  // 如果是群聊改成group
     "id": "231231231"
 }
 
 ```
 
-输入输出（cin和cout）支持群聊/私人聊天。类型分别是`group`和`private`。
+输入输出（cin和cout）支持群聊/私人聊天。类型可以是`group`或`private`。
 
 然后启动：
 
