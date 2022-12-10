@@ -1,0 +1,21 @@
+{
+  "name": "ChatGPT-QQBot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "oicq": "",
+    "bot": ""
+  },
+  "keywords": [
+    "bot"
+  ],
+  "author": "linsyking",
+  "license": "MIT",
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "chatgpt": "^2.0.5",
+    "oicq": "1"
+  }
+}
