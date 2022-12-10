@@ -1,10 +1,14 @@
 # ChatGPT QQ (Group) Bot
 
+Still under heavy development. APIs may change in the future.
+
+---
+
 [![asciicast](https://asciinema.org/a/Bajz7vUR6IQXlVQHdKBlu7231.svg)](https://asciinema.org/a/Bajz7vUR6IQXlVQHdKBlu7231)
 
 ## Getting Started
 
-### 自搭环境
+### Self-built
 
 先安装：
 
@@ -35,7 +39,24 @@ pnpm install
 
 先将`bot/config.sample.js`复制一份到`bot/config.js`，并配置你的`sessionToken`，还有你的输入输出。
 
-输入输出支持群聊/私人聊天。类型分别是`group`和`private`。
+你的配置文件形式如下：
+
+```bash
+export const sessionToken = "xxx"
+
+export const cin = {
+    "type": "group",
+    "id": "2131231231"
+}
+
+export const cout = {
+    "type": "private",
+    "id": "231231231"
+}
+
+```
+
+输入输出（cin和cout）支持群聊/私人聊天。类型分别是`group`和`private`。
 
 然后启动：
 
@@ -52,6 +73,20 @@ TO-DO
 ## Plugins
 
 你可以开发自己的插件，放在`./bot/plugins/`中。`chat.js`是一个示例插件。
+
+目前的API接口：
+
+`init_prompt`：初始的prompt，仅支持字符串。
+
+`send_handler(msg)`：`msg`是由ChatGPT生成的回复。在这个函数里过滤/修改回复。
+
+`receive_handler(data)`：`data`是一个JSON结构数据（不是字符串），是接收到的QQ消息。结构是`oicq.MessageEventData`。参考示例插件。
+
+## Contribute
+
+Open PRs or issues to post feature requests.
+
+欢迎大家开发新的插件。
 
 ## 效果展示
 
