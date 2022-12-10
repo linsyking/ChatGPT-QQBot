@@ -9,11 +9,6 @@ const api = require("oicq/http-api/api");
 const transNotice = require("oicq/http-api/cq-notice");
 const amqp = require('amqplib/callback_api');
 
-// Configure your group
-
-let group_in;
-let group_out;
-
 /**
  * @type {oicq.ConfBot}
  */
@@ -25,7 +20,7 @@ const config = {};
 let bot;
 
 
-let account = 0, passdir = "", wsrCreated = false;
+let account = 0, passdir = "";
 
 function send_mq(msg) {
     amqp.connect('amqp://127.0.0.1', function (error0, connection) {
@@ -43,7 +38,7 @@ function send_mq(msg) {
             });
 
             channel.sendToQueue(queue, Buffer.from(msg));
-            console.log("Sent", msg);
+            // console.log("Sent", msg);
 
         });
     });
@@ -64,8 +59,19 @@ function init_receiver() {
             });
 
             channel.consume(queue, function (msg) {
-                console.log("Received", msg.content.toString());
-                bot.sendGroupMsg(group_out, msg.content.toString());
+                let content = msg.content.toString();
+                console.log("Received", content);
+
+                content = JSON.parse(content);
+
+                if (content["type"] == "group") {
+                    bot.sendGroupMsg(content["target_id"], content["content"]);
+                } else if (content["type"] == "private") {
+                    bot.sendPrivateMsg(content["target_id"], content["content"]);
+                }else {
+                    console.log("Unknown type", content, "ignored");
+                }
+
             }, {
                 noAck: true
             });
@@ -78,13 +84,9 @@ function init_receiver() {
  * 启动
  * arg1: account id
  * arg2: config
- * arg3: group in
- * arg4: group out
  */
-function startup(arg1, arg2, arg3, arg4) {
+function startup(arg1, arg2) {
     init_receiver();
-    group_in = arg3;
-    group_out = arg4;
     account = arg1;
     Object.assign(config, arg2);
     config.data_dir = path.join(os.homedir(), ".oicq");
@@ -164,26 +166,10 @@ function createBot() {
         if (config.use_cqhttp_notice)
             transNotice(data);
     });
-    bot.on("message", (data) => {
-        if (config.post_message_format === "string")
-            data.message = data.raw_message;
-        if (data.group_id && data.group_id == group_in) {
-            // Send to rabbit mq
-            console.log(data.message)
-            var msg_string = ""
-            if (data.message[0]["type"] === "text") {
-                msg_string = data.message[0]["data"]["text"]
-            } else if (data.message[0]["type"] === "at" && data.message[1]["type"] === "text") {
-                // at someone
-                msg_string = data.message[0]["data"]["text"] + "，" + data.message[1]["data"]["text"]
-            } else {
-                console.log(data.message[0]["type"], "is not text")
-                return;
-            }
-            var real_sq = data.sender["nickname"] + "：" + msg_string;
-            send_mq(real_sq)
 
-        }
+    bot.on("message", (data) => {
+        // Send all message to rabbit mq
+        send_mq(JSON.stringify(data));
     });
 }
 

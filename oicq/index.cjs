@@ -33,10 +33,7 @@ if (account > 10000 && account < 0xffffffff) {
   *******************************************************************
 `);
     const config = require(confpath);
-    if (!config["general"]["group_in"] || !config["general"]["group_out"]) {
-      throw "no group_in or group_out";
-    }
-    require("./oicq.cjs")(account, Object.assign(config.general, config[account]), config["general"]["group_in"], config["general"]["group_out"]);
+    require("./oicq.cjs")(account, Object.assign(config.general, config[account]));
 } else {
     console.log(help);
 }

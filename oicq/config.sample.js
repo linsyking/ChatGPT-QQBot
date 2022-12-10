@@ -8,8 +8,6 @@ module.exports = {
         platform:           5,       //1:安卓手机 2:aPad 3:安卓手表 4:MacOS 5:iPad
         log_level:          "debug",  //trace,debug,info,warn,error,mark
         use_cqhttp_notice:  false,   //是否使用cqhttp标准的notice事件格式
-        group_in:           "126381239", // 接收信息的群号
-        group_out:          "213971912", // 输出信息的群号
 
         host:               "0.0.0.0",  //监听主机名
         port:               5700,       //端口

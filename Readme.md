@@ -27,13 +27,15 @@ pnpm install
 ./bin/oicq.cjs <qq id>
 ```
 
-首次启动会生成配置文件，请先修改配置文件中的`group_in`和`group_out`。分别代表输入的群和输出的群。可以一样。
+首次启动会生成配置文件。
 
-然后再次启动oicq，输入密码/扫描二维码登陆。
+然后再次启动oicq，输入密码/扫描二维码登陆（推荐用二维码，如果不行可以换）。
 
 接着启动bot。
 
-先在`bot/game.js`中配置你的`sessionToken`。
+先将`bot/config.sample.js`复制一份到`bot/config.js`，并配置你的`sessionToken`，还有你的输入输出。
+
+输入输出支持群聊/私人聊天。类型分别是`group`和`private`。
 
 然后启动：
 
@@ -47,13 +49,13 @@ pnpm install
 
 TO-DO
 
-## Prompt
+## Plugins
 
-你可以在`game.js`中修改初始prompt。可以修改bot名字等等。
+你可以开发自己的插件，放在`./bot/plugins/`中。`chat.js`是一个示例插件。
 
 ## 效果展示
 
-（它会知道聊天用户的名字）
+（使用`chat.js`插件，它会知道聊天用户的名字）
 
 ![log1](https://user-images.githubusercontent.com/49303317/206824539-8175b40f-66ec-4a62-93b4-cdeab1d62bf5.jpeg)
 
